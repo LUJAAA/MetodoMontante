@@ -1,6 +1,10 @@
 from tokens import Tokenizador, LexerException, Tipo
 from matrices import Matriz
 
+# TODO: Buscar errores en el parser y corregirlos.
+# Probar distintas entradas para comprobar su correcto
+# funcionamiento.
+
 class Parser:
     def __init__(self, cadena: str):
         self.cadena = cadena
@@ -13,6 +17,7 @@ class Parser:
         except (StopIteration, LexerException):
             self.token = None
 
+
     def validar(self):
         y = self.cadena.find(']', 0, len(self.cadena))
 
@@ -24,7 +29,7 @@ class Parser:
         lexer1 = Tokenizador(self.cadena[:y+1])
         self.sig_token(lexer1)
 
-        if not self.parse_a(lexer1):
+        if self.token is None or not self.parse_a(lexer1):
             return "Entrada inválida."
 
         dimension = len(self.elementos)
@@ -34,7 +39,7 @@ class Parser:
         lexer2 = Tokenizador(self.cadena[y+1:])
         self.sig_token(lexer2)
 
-        if not self.parse_a(lexer2):
+        if self.token is None or not self.parse_a(lexer2):
             return "Entrada inválida."
 
         if len(self.elementos) != (dimension ** 2):

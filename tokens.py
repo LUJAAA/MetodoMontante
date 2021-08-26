@@ -24,7 +24,6 @@ class Token:
         return f"Tipo: {self.tipo_token} Valor: {self.valor}"
 
 
-
 class Tokenizador:
     def __init__(self, cadena: str):
         self.cadena = cadena.replace(' ', '')

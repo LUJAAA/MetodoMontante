@@ -33,7 +33,12 @@ class Tokenizador:
     def formar_numero(self):
         numero = ""
 
-        while self.cadena[self.puntero].isnumeric() and self.puntero < len(self.cadena):
+        # Número con signo negativo.
+        if self.cadena[self.puntero] == '-':
+            numero += self.cadena[self.puntero]
+            self.puntero += 1
+
+        while self.puntero < len(self.cadena) and self.cadena[self.puntero].isnumeric():
             numero += self.cadena[self.puntero]
             self.puntero += 1
 
@@ -50,7 +55,7 @@ class Tokenizador:
             elif self.cadena[self.puntero] == ',':
                 self.puntero += 1
                 yield Token(Tipo.COMA, ',')
-            elif self.cadena[self.puntero].isnumeric():
+            elif self.cadena[self.puntero] == '-' or self.cadena[self.puntero].isnumeric():
                 yield Token(Tipo.NUMERO, self.formar_numero())
             else:
                 raise LexerException

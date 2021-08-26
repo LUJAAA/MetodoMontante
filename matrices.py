@@ -1,3 +1,8 @@
+class PivoteNulo(Exception):
+    def __init__(self, message):
+        self.message = message
+
+
 class Matriz:
     def __init__(self, dimension: int, elementos: list):
         self.dimension = dimension
@@ -15,6 +20,9 @@ class Matriz:
         # j: columna.
         for k in range(self.dimension):
             pivote_actual = self.posicion(k, k)
+
+            if pivote_actual == 0:
+                raise PivoteNulo("Uno o más valores de la diagonal son ceros.\n")
 
             for i in range(k + 1, self.dimension):
                 for j in range(k + 1, self.dimension):

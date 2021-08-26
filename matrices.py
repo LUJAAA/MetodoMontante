@@ -30,6 +30,8 @@ class Matriz:
 
             pivote_anterior = pivote_actual
 
+        # Después de hacer el procedimiento, el determinante se encuentra
+        # en la fila n, columna n de la matriz.
         self.determinante = self.posicion(self.dimension - 1, self.dimension - 1)
 
         for i in range(len(independientes)):

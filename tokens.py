@@ -1,6 +1,7 @@
 from matrices import Matriz
 from dataclasses import dataclass
 from enum import Enum
+import re
 
 
 class LexerException(Exception):
@@ -41,6 +42,9 @@ class Tokenizador:
             numero += self.cadena[self.puntero]
             self.puntero += 1
 
+        if not re.match("-?[1-9][0-9]*", numero) and numero != '0':
+            return None
+
         return numero
 
     def tokenizar(self):
@@ -55,6 +59,11 @@ class Tokenizador:
                 self.puntero += 1
                 yield Token(Tipo.COMA, ',')
             elif self.cadena[self.puntero] == '-' or self.cadena[self.puntero].isnumeric():
-                yield Token(Tipo.NUMERO, self.formar_numero())
+                token = Token(Tipo.NUMERO, self.formar_numero())
+
+                if token.valor is None:
+                    raise LexerException
+
+                yield token
             else:
                 raise LexerException

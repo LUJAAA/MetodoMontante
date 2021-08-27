@@ -36,7 +36,7 @@ def main():
             i += 1
 
         try:
-            resultados = matriz.solucionar(independientes)
+            matriz.solucionar(independientes)
         except PivoteNulo as e:
             print(e.message)
             continue
